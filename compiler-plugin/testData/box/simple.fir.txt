@@ -1,0 +1,6 @@
+FILE: simple.kt
+    package foo.bar
+
+    public final fun box(): R|kotlin/String| {
+        ^box String(OK)
+    }

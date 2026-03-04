@@ -1,0 +1,16 @@
+FILE: anotherBoxTest.kt
+    package org.spongepowered.asm.mixin.gen
+
+    public final annotation class Accessor : R|kotlin/Annotation| {
+        public constructor(): R|org/spongepowered/asm/mixin/gen/Accessor| {
+            super<R|kotlin/Any|>()
+        }
+
+    }
+    @R|org/spongepowered/asm/mixin/gen/Accessor|() public final fun R|kotlin/String|.box(): R|kotlin/String| {
+        ^box R|kotlin/TODO|()
+    }
+    public final external fun test(): R|kotlin/Unit|
+    public final fun box(): R|kotlin/String| {
+        ^box String(OK)
+    }

@@ -1,0 +1,80 @@
+FILE fqName:org.spongepowered.asm.mixin.gen fileName:/anotherBoxTest.kt
+  CLASS ANNOTATION_CLASS name:Accessor modality:OPEN visibility:public superTypes:[kotlin.Annotation]
+    thisReceiver: VALUE_PARAMETER INSTANCE_RECEIVER kind:DispatchReceiver name:<this> type:org.spongepowered.asm.mixin.gen.Accessor
+    CONSTRUCTOR visibility:public returnType:org.spongepowered.asm.mixin.gen.Accessor [primary]
+      BLOCK_BODY
+        DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS ANNOTATION_CLASS name:Accessor modality:OPEN visibility:public superTypes:[kotlin.Annotation]' type=kotlin.Unit
+    FUN FAKE_OVERRIDE name:equals visibility:public modality:OPEN returnType:kotlin.Boolean [fake_override,operator]
+      VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:kotlin.Any
+      VALUE_PARAMETER kind:Regular name:other index:1 type:kotlin.Any?
+      overridden:
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Annotation
+    FUN FAKE_OVERRIDE name:hashCode visibility:public modality:OPEN returnType:kotlin.Int [fake_override]
+      VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:kotlin.Any
+      overridden:
+        public open fun hashCode (): kotlin.Int declared in kotlin.Annotation
+    FUN FAKE_OVERRIDE name:toString visibility:public modality:OPEN returnType:kotlin.String [fake_override]
+      VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:kotlin.Any
+      overridden:
+        public open fun toString (): kotlin.String declared in kotlin.Annotation
+  CLASS CLASS name:B modality:FINAL visibility:public superTypes:[kotlin.Any]
+    thisReceiver: VALUE_PARAMETER INSTANCE_RECEIVER kind:DispatchReceiver name:<this> type:org.spongepowered.asm.mixin.gen.B
+    CONSTRUCTOR visibility:public returnType:org.spongepowered.asm.mixin.gen.B [primary]
+      BLOCK_BODY
+        DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:B modality:FINAL visibility:public superTypes:[kotlin.Any]' type=kotlin.Unit
+    FUN FAKE_OVERRIDE name:equals visibility:public modality:OPEN returnType:kotlin.Boolean [fake_override,operator]
+      VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:kotlin.Any
+      VALUE_PARAMETER kind:Regular name:other index:1 type:kotlin.Any?
+      overridden:
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+    FUN FAKE_OVERRIDE name:hashCode visibility:public modality:OPEN returnType:kotlin.Int [fake_override]
+      VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:kotlin.Any
+      overridden:
+        public open fun hashCode (): kotlin.Int declared in kotlin.Any
+    FUN FAKE_OVERRIDE name:toString visibility:public modality:OPEN returnType:kotlin.String [fake_override]
+      VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:kotlin.Any
+      overridden:
+        public open fun toString (): kotlin.String declared in kotlin.Any
+  CLASS INTERFACE name:Mrow modality:ABSTRACT visibility:public superTypes:[kotlin.Any]
+    thisReceiver: VALUE_PARAMETER INSTANCE_RECEIVER kind:DispatchReceiver name:<this> type:org.spongepowered.asm.mixin.gen.Mrow
+    FUN FAKE_OVERRIDE name:equals visibility:public modality:OPEN returnType:kotlin.Boolean [fake_override,operator]
+      VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:kotlin.Any
+      VALUE_PARAMETER kind:Regular name:other index:1 type:kotlin.Any?
+      overridden:
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+    FUN FAKE_OVERRIDE name:hashCode visibility:public modality:OPEN returnType:kotlin.Int [fake_override]
+      VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:kotlin.Any
+      overridden:
+        public open fun hashCode (): kotlin.Int declared in kotlin.Any
+    FUN FAKE_OVERRIDE name:toString visibility:public modality:OPEN returnType:kotlin.String [fake_override]
+      VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:kotlin.Any
+      overridden:
+        public open fun toString (): kotlin.String declared in kotlin.Any
+    FUN name:test visibility:public modality:ABSTRACT returnType:kotlin.Unit
+      VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:org.spongepowered.asm.mixin.gen.Mrow
+  FUN name:a visibility:public modality:FINAL returnType:kotlin.Unit
+    VALUE_PARAMETER kind:ExtensionReceiver name:<this> index:0 type:org.spongepowered.asm.mixin.gen.B
+    BLOCK_BODY
+      RETURN type=kotlin.Nothing from='public final fun a (<this>: org.spongepowered.asm.mixin.gen.B): kotlin.Unit declared in org.spongepowered.asm.mixin.gen'
+        CALL 'public abstract fun test (): kotlin.Unit declared in org.spongepowered.asm.mixin.gen.Mrow' type=kotlin.Unit origin=null
+          ARG <this>: TYPE_OP type=org.spongepowered.asm.mixin.gen.Mrow origin=CAST typeOperand=org.spongepowered.asm.mixin.gen.Mrow
+            GET_VAR '<this>: org.spongepowered.asm.mixin.gen.B declared in org.spongepowered.asm.mixin.gen.a' type=org.spongepowered.asm.mixin.gen.B origin=null
+  FUN name:box visibility:public modality:FINAL returnType:kotlin.String
+    BLOCK_BODY
+      RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in org.spongepowered.asm.mixin.gen'
+        CONST String type=kotlin.String value="OK"
+  FUN name:box visibility:public modality:FINAL returnType:kotlin.String
+    VALUE_PARAMETER kind:ExtensionReceiver name:<this> index:0 type:kotlin.String
+    annotations:
+      Accessor
+    EXPRESSION_BODY
+      CALL 'public abstract fun kittin$box$accessor (): kotlin.String declared in cat.mona.kittin.mixin_test.StringAccessor' type=kotlin.String origin=null
+        ARG <this>: TYPE_OP type=cat.mona.kittin.mixin_test.StringAccessor origin=CAST typeOperand=cat.mona.kittin.mixin_test.StringAccessor
+          GET_VAR '<this>: kotlin.String declared in org.spongepowered.asm.mixin.gen.box' type=kotlin.String origin=null
+FILE fqName:cat.mona.kittin.mixin_test fileName:StringAccessor
+  CLASS KITTIN_GENERATED INTERFACE name:StringAccessor modality:ABSTRACT visibility:public superTypes:[]
+    thisReceiver: VALUE_PARAMETER INSTANCE_RECEIVER kind:DispatchReceiver name:<this> type:cat.mona.kittin.mixin_test.StringAccessor
+    FUN KITTIN_GENERATED name:kittin$box$accessor visibility:public modality:ABSTRACT returnType:kotlin.String
+      VALUE_PARAMETER KITTIN_GENERATED kind:DispatchReceiver name:<this> index:0 type:cat.mona.kittin.mixin_test.StringAccessor
