@@ -47,7 +47,13 @@ class AccessorGenerator(val mixnPackage: FqName, val pluginContext: IrPluginCont
 
         val kind = if (declaration.hasAnnotation(KittinConstants.accessorAnnotation)) AccessorType.ACCESSOR else AccessorType.INVOKER
 
-        val function = irClass.functions.find { it.accessorType == kind && it.accessorFieldName == declaration.getAccessorName() && it.accessorRemapped == declaration.isRemapped() }!!
+        val parameters = declaration.parameters.filterNot { it.kind == IrParameterKind.ExtensionReceiver }
+        val function = irClass.functions.find {
+            it.accessorType == kind &&
+                it.accessorFieldName == declaration.getAccessorName()
+                && it.accessorRemapped == declaration.isRemapped()
+                && it.parameters.filterNot { it.kind == IrParameterKind.DispatchReceiver }.map { it.type }.toTypedArray().contentEquals(parameters.map { it.type }.toTypedArray())
+        }!!
 
         declaration.body = factory.createExpressionBody(
             IrCallImpl(
@@ -56,8 +62,8 @@ class AccessorGenerator(val mixnPackage: FqName, val pluginContext: IrPluginCont
                 function.returnType,
                 function.symbol,
             ).apply {
-                for ((index, parameter) in declaration.parameters.withIndex()) {
-                    arguments[index] = IrGetValueImpl(-1, -1, parameter.symbol)
+                for ((index, parameter) in parameters.withIndex()) {
+                    arguments[1 + index] = IrGetValueImpl(-1, -1, parameter.symbol)
                 }
 
                 arguments[0] = casted

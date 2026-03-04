@@ -3,7 +3,7 @@ package org.spongepowered.asm.mixin.gen
 annotation class Accessor
 
 @Accessor
-external fun String.box(): String
+external fun String.box(a: String): String
 
 class B
 

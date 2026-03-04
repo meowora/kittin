@@ -19,6 +19,7 @@ import org.jetbrains.kotlin.ir.builders.declarations.addValueParameter
 import org.jetbrains.kotlin.ir.builders.declarations.buildClass
 import org.jetbrains.kotlin.ir.builders.declarations.buildReceiverParameter
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
+import org.jetbrains.kotlin.ir.declarations.IrParameterKind
 import org.jetbrains.kotlin.ir.declarations.IrValueParameter
 import org.jetbrains.kotlin.ir.declarations.impl.IrFileImpl
 import org.jetbrains.kotlin.ir.types.IrType
@@ -57,9 +58,31 @@ data class IrValueParameterWrapper(val parameter: IrValueParameter) {
     }
 }
 
-data class AccessorMetadata(val name: String, val remap: Boolean, val returnType: IrType, val parameters: List<IrValueParameterWrapper>, val type: AccessorType) {
+data class AccessorMetadata(val name: String, val remap: Boolean, val returnType: IrType, val parameters: Array<IrValueParameterWrapper>, val type: AccessorType) {
     companion object {
-        fun of(name: String, remap: Boolean, returnType: IrType, parameters: List<IrValueParameter>, type: AccessorType) = AccessorMetadata(name, remap, returnType, parameters.map(::IrValueParameterWrapper), type)
+        fun of(name: String, remap: Boolean, returnType: IrType, parameters: List<IrValueParameter>, type: AccessorType) = AccessorMetadata(name, remap, returnType, parameters.map(::IrValueParameterWrapper).toTypedArray(), type)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is AccessorMetadata) return false
+
+        if (remap != other.remap) return false
+        if (name != other.name) return false
+        if (returnType != other.returnType) return false
+        if (!parameters.contentEquals(other.parameters)) return false
+        if (type != other.type) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = remap.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + returnType.hashCode()
+        result = 31 * result + parameters.contentHashCode()
+        result = 31 * result + type.hashCode()
+        return result
     }
 }
 typealias AccessorCollector = MutableMap<IrType?, MutableSet<AccessorMetadata>>
@@ -118,7 +141,8 @@ class SimpleIrGenerationExtension(val modId: String, mixinPackage: String) : IrG
                         accessorFunction.accessorFieldName = name
                         accessorFunction.accessorRemapped = remap
 
-                        for ((parameter) in parameters.listIterator(1)) {
+                        for ((parameter) in parameters) {
+                            if (parameter.kind == IrParameterKind.ExtensionReceiver) continue
                             accessorFunction.addValueParameter {
                                 this.name = parameter.name
                                 this.updateFrom(parameter)

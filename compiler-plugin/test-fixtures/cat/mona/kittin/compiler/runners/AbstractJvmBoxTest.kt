@@ -1,6 +1,7 @@
 package cat.mona.kittin.compiler.runners
 
 import cat.mona.kittin.compiler.services.configurePlugin
+import org.jetbrains.kotlin.cli.common.arguments.allowTestsOnlyLanguageFeatures
 import org.jetbrains.kotlin.config.JvmSerializeIrMode
 import org.jetbrains.kotlin.test.FirParser
 import org.jetbrains.kotlin.test.builders.TestConfigurationBuilder
