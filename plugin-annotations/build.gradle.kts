@@ -1,16 +1,17 @@
-@file:OptIn(ExperimentalWasmDsl::class)
-
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.binary.compatibility.validator)
+    `maven-publish`
 }
 
 kotlin {
     explicitApi()
+}
 
-    jvm()
-
-    applyDefaultHierarchyTemplate()
+publishing {
+    publications {
+        create<MavenPublication>("mrow") {
+            from(components["java"])
+        }
+    }
 }

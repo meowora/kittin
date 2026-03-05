@@ -8,6 +8,11 @@ import org.jetbrains.kotlin.test.builders.TestConfigurationBuilder
 import org.jetbrains.kotlin.test.model.TestModule
 import org.jetbrains.kotlin.test.services.EnvironmentConfigurator
 import org.jetbrains.kotlin.test.services.TestServices
+import java.nio.file.Path
+import kotlin.io.path.Path
+import kotlin.io.path.absolute
+import kotlin.io.path.absolutePathString
+import kotlin.io.path.deleteIfExists
 
 fun TestConfigurationBuilder.configurePlugin() {
     useConfigurators(::ExtensionRegistrarConfigurator)
@@ -20,8 +25,11 @@ private class ExtensionRegistrarConfigurator(testServices: TestServices) : Envir
         configuration: CompilerConfiguration
     ) {
 
+        val path = Path("mrow")
         configuration.put(KittinCommandLineProcessor.modId, "kittin")
         configuration.put(KittinCommandLineProcessor.mixinPackage, "cat.mona.kittin.mixin_test")
+        configuration.put(KittinCommandLineProcessor.mixinFile, path)
         with(registrar) { registerExtensions(configuration) }
+        path.deleteIfExists()
     }
 }

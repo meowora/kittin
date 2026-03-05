@@ -1,16 +1,11 @@
-package org.spongepowered.asm.mixin.gen
+package cat.mona.kittin
 
 annotation class Accessor
 
 @Accessor
-external fun String.box(a: String): String
-
-class B
-
-interface Mrow {
-    fun test()
-}
-
-fun B.a() = (this as Mrow).test()
+external var String.box: String
+var String.box2: String
+    get() = TODO()
+    set(value) = TODO()
 
 fun box() = "OK"

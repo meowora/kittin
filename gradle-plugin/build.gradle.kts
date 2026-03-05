@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.buildconfig)
     alias(libs.plugins.gradle.plugin)
+    `maven-publish`
 }
 
 sourceSets {
@@ -45,7 +46,7 @@ gradlePlugin {
             id = rootProject.group.toString()
             displayName = "Kittin"
             description = "Allows to create mixins with kotlin"
-            implementationClass = "cat.mona.kittin.SimpleGradlePlugin"
+            implementationClass = "cat.mona.kittin.KittinGradlePlugin"
         }
     }
 }

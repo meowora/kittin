@@ -1,6 +1,8 @@
 package cat.mona.kittin.compiler
 
 import cat.mona.kittin.compiler.ir.AccessorType
+import org.jetbrains.kotlin.GeneratedDeclarationKey
+import org.jetbrains.kotlin.fir.declarations.FirDeclarationOrigin
 import org.jetbrains.kotlin.ir.IrAttribute
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationOrigin
 import org.jetbrains.kotlin.ir.declarations.IrFunction
@@ -17,7 +19,12 @@ object KittinConstants {
     operator fun FqName.plus(name: String) = this.child(!name)
     operator fun FqName.minus(name: String) = ClassId(this, !name)
 
+    val kittinPackage = +"cat.mona.kittin"
+
+    val kittinAccessor =  kittinPackage - "Accessor"
+
     val mixinPackage = +"org.spongepowered.asm.mixin"
+
     val mixinGenPackage = mixinPackage + "gen"
 
     val mixinAnnotation = mixinPackage - "Mixin"
@@ -29,7 +36,9 @@ object KittinConstants {
     var IrFunction.accessorFieldName: String? by irAttribute(true)
 }
 
-data object KittinGenerated : IrDeclarationOrigin {
+val KittinFirGenerated = FirDeclarationOrigin.Plugin(KittinGenerated)
+
+data object KittinGenerated : GeneratedDeclarationKey(), IrDeclarationOrigin {
     override val name: String = "cat.mona.kittin.generated"
     override val isSynthetic: Boolean = false
 
