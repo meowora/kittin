@@ -6,6 +6,8 @@ plugins {
     `maven-publish`
 }
 
+version = libs.versions.kotlin.asProvider().get() + "-" + rootProject.version
+
 sourceSets {
     main {
         java.setSrcDirs(listOf("src"))
